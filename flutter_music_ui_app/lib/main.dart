@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttery_seekbar/fluttery_seekbar.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -44,6 +46,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
+  Widget _buildRadiaSeekbar(){
+
+    double _thumbPercent = 0.4;
+
+    return RadialSeekBar(
+      trackColor: Colors.red.withOpacity(.5),
+      trackWidth: 2.0,
+      progressColor: Color(0xFFFE1483),
+      progressWidth: 5.0,
+      thumbPercent: _thumbPercent,
+      thumb: CircleThumb(
+        color: Color(0xFFFE1483),
+        diameter: 20.0,
+      ),
+      progress: _thumbPercent,
+      onDragUpdate: (double percent){
+        setState(() {
+          _thumbPercent = percent;
+        });
+      },
+    );
+  }
+
+
+
+
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -66,46 +97,62 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: IconButton(
+            icon: Icon(
+                Icons.arrow_back_ios,
+                color: Color(0xFFFE1483)),
+                onPressed: () {},
         ),
+        title: Text("Music World",
+          style: TextStyle(color: Color(0xFFFE1483), fontFamily: "Nexa")),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.menu), color: Color(0xFFFE1483),
+              onPressed: () {})
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: Container(
+              width: 250.0,
+              height: 250.0,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xFFFE1483).withOpacity(.5),
+                        shape: BoxShape.circle
+                    ),
+                    child: Padding(padding: const EdgeInsets.all(12.0),
+                      child: _buildRadiaSeekbar(),)
+
+                  ),
+                  Center(
+                    child: Container(
+                      width: 200.0,
+                      height: 200.0,
+                      child: Image.asset(
+                          "assets/justine.jpg",
+                          fit: BoxFit.cover,
+                      ),
+
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+
     );
   }
 }
