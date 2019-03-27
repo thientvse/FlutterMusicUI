@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttery_seekbar/fluttery_seekbar.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -47,6 +48,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
+  Widget _buildRadiaSeekbar(){
+
+    double _thumbPercent = 0.4;
+
+    return RadialSeekBar(
+      trackColor: Colors.red.withOpacity(.5),
+      trackWidth: 2.0,
+      progressColor: Color(0xFFFE1483),
+      progressWidth: 5.0,
+      thumbPercent: _thumbPercent,
+      thumb: CircleThumb(
+        color: Color(0xFFFE1483),
+        diameter: 20.0,
+      ),
+      progress: _thumbPercent,
+      onDragUpdate: (double percent){
+        setState(() {
+          _thumbPercent = percent;
+        });
+      },
+    );
+  }
+
+
+
+
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -93,30 +123,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+
+
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
             icon: Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xFFFE1483),
-            ),
-            onPressed: () {}),
-        title: Text(
-          "Music World",
-          style: TextStyle(color: Color(0xFFFE1483), fontFamily: "Nexa"),
+
+                Icons.arrow_back_ios,
+                color: Color(0xFFFE1483)),
+                onPressed: () {},
         ),
+        title: Text("Music World",
+          style: TextStyle(color: Color(0xFFFE1483), fontFamily: "Nexa")),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Color(0xFFFE1483),
-              ),
+              icon: Icon(Icons.menu), color: Color(0xFFFE1483),
+
+
               onPressed: () {})
         ],
       ),
       body: Column(
         children: <Widget>[
+
           SizedBox(
             height: 5.0,
           ),
@@ -268,10 +299,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
               ],
+
             ),
           )
         ],
       ),
+
     );
   }
 }
@@ -324,5 +357,6 @@ class MClipper extends CustomClipper<Rect> {
   bool shouldReclip(CustomClipper<Rect> oldClipper) {
     // TODO: implement shouldReclip
     return true;
+
   }
 }
